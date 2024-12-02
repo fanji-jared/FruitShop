@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import static FruitShop.FruitShop.localUrl;
 
 //西部类封装
 public class West {
@@ -26,17 +30,17 @@ public class West {
         return container;
     }
 
-    public West(Container container, int width, int height, Center center) {
+    public West(Container container, int width, int height, Center center) throws MalformedURLException {
         setContainer(container);
         //自定义布局
         jPanel = new JPanel();
         //自定义布局
         jPanel.setLayout(null);
 
-        PageUp = WestButInit("上一页", "images/l.png", 0, 50, 35, 35);
+        PageUp = WestButInit("上一页","images/l.png", 0, 50, 35, 35);
         PageNumInit(center);
         PageNum.setBounds(0, 150, 50, 16);
-        PageDown = WestButInit("下一页", "images/r.png", 0, 200, 35, 35);
+        PageDown = WestButInit("下一页","images/r.png", 0, 200, 35, 35);
         jPanel.add(PageNum);
 
         //添加布局到内容面板的西部
@@ -51,9 +55,11 @@ public class West {
     }
 
     //西部按钮初始化
-    JButton WestButInit(String jLabName, String jButUrl, int x, int y, int w, int h) {
+    JButton WestButInit(String jLabName, String imagePath, int x, int y, int w, int h) throws MalformedURLException {
+        // 将URL与相对路径进行拼接
+        URL iconUrl = new URL(localUrl, imagePath);
         //获取图片资源
-        Icon img = new ImageIcon(this.getClass().getResource(jButUrl));
+        Icon img = new ImageIcon(iconUrl);
         JButton jButton = new JButton(img);
         //设置内容区域不填充
         jButton.setContentAreaFilled(false);
