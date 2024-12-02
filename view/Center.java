@@ -9,6 +9,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 
+import static FruitShop.FruitShop.localUrl;
+
 //中心类封装
 public class Center {
     //暴露网格布局管理器
@@ -51,13 +53,17 @@ public class Center {
             jPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
             jPanel.setBackground(Color.lightGray);
             //拼接水果信息
-            String news = "<html><body>ID:" + fruit.getId() + "<br>名字:" + fruit.getName() + "<br>价格:" + fruit.getPrice() + "<br>库存:" + fruit.getStock() + "</body></html>";
+            String news = "<html><body>ID:" + fruit.getId() + "<br>名字:" + fruit.getName() + "<br><br>价格:" + fruit.getPrice() + "<br><br>库存:" + fruit.getStock() + "</body></html>";
             //添加图片
             URL img = null;
             try {
                 img = new URL(fruit.getImgUrl());
             } catch (MalformedURLException e) {
-                img = this.getClass().getResource(fruit.getImgUrl());
+                try {
+                    img = new URL(localUrl, fruit.getImgUrl());
+                } catch (MalformedURLException ex) {
+                    throw new RuntimeException(ex);
+                }
                 System.out.println("未设置网络图片:" + e.getMessage());
             }
             JLabel jLabel = new JLabel(news);

@@ -1,12 +1,15 @@
 package FruitShop.view;
 
 import FruitShop.FruitShop;
+import FruitShop.util.Init;
 
 import javax.swing.*;
 import java.awt.*;
 
 //北部类封装
 public class North {
+    public JPanel NorthJpanel;
+
     //暴露按钮，为了添加事件
     public JButton ck;
     public JButton xg;
@@ -31,7 +34,7 @@ public class North {
         tj = new JButton("添  加");
         sc = new JButton("删  除");
         JButton[] jButtons = new JButton[]{ck, xg, tj, sc};
-        JPanel NorthJpanel = new JPanel();
+        NorthJpanel = new JPanel();
         //居中排列 左右和上下margin
         NorthJpanel.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 5));
         //初始化按钮
@@ -44,7 +47,8 @@ public class North {
     //添加按钮
     private void NorthButInit(Object box, JButton[] jButton) {
         for (JButton j : jButton) {
-            FruitShop.ButtonInit(j);
+
+            Init.ButtonInit(j);
             if (box instanceof JPanel Panel) {
                 Panel.add(j);
             }
