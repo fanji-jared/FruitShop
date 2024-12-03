@@ -27,6 +27,8 @@ public class viewEastListen {
                 } else {
                     //输入框 请求焦点
                     jTextField.requestFocus();
+                    // 显示一个简单的消息框
+                    JOptionPane.showMessageDialog(null, "超出限制，无法跳转！", "提示", JOptionPane.INFORMATION_MESSAGE);
                     System.out.println("超出限制，无法跳转!");
                 }
             }
@@ -66,8 +68,10 @@ public class viewEastListen {
 
                     //自动定义多个属性
                     center.XgJPShu(fruits, id, XgName, XgUrl, XgPri, XgSto);
+                }else{
+                    // 显示一个简单的消息框
+                    JOptionPane.showMessageDialog(null, "id 存在问题，无法修改！", "提示", JOptionPane.INFORMATION_MESSAGE);
                 }
-
             }
         });
     }
@@ -105,11 +109,15 @@ public class viewEastListen {
                             ? new Fruit(Integer.parseInt(jTextTjIdText), jTextTjNameText, TjUrl, TjPri, TjSto)
                             : (!TjUrl.equals("#") ? new Fruit(Integer.parseInt(jTextTjIdText), jTextTjNameText, TjUrl)
                             : new Fruit(Integer.parseInt(jTextTjIdText), jTextTjNameText));
+
                     //添加到面板数组
                     center.TjFruit(fruit);
                     //更新id
                     JTextTJField.setText(String.valueOf(center.JPfruits.length + 1));
                     center.f5();
+                }else{
+                    // 显示一个简单的消息框
+                    JOptionPane.showMessageDialog(null, "必填项目为空！", "提示", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });

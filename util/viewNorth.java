@@ -26,7 +26,7 @@ public class viewNorth {
                 System.out.println("修改按钮按下");
                 System.out.println("切换界面：" + east.NumFoCard(2));
                 // 更新id
-                jTextXGField.setText(String.valueOf(center.JPfruits.length + 1));
+                jTextXGField.setText(String.valueOf(center.JPfruits.length));
 //                east.f5(north, center, west, jTextXGField);
             }
         });
