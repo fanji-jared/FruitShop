@@ -11,7 +11,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class FruitShop {
-    //
+    // 项目根目录
     public static URL localUrl = FruitShop.class.getResource("");
 
     //窗口大小

@@ -60,31 +60,33 @@ public class East {
         }
     }
 
+    /*
     //清空并再次添加后刷新
     public void f5(North north, Center center, West west, JTextField jf) {
-//        //删除所有控件
-////        jPanel.removeAll();
-//        jPanel.remove(jf);
-//
-//        //重新添加
-//        /******************开始为每个卡片添加组件*****************添加************************************************/
-////        eastCard.addCKCard(this, center, west);
-//        /****************************************************修改*************************************************/
-//        JTextField jTextXGField = eastCard.addXGCard(this, center);
-//        /****************************************************添加*************************************************/
-//        JTextField jTextTJField = eastCard.addTJCard(this, center);
-//        /****************************************************删除*************************************************/
-////        eastCard.addSCCard(this, center, west);
-//        /*********************************************结束为每个卡片添加组件*****************************************/
-//
-//        //为 North 菜单 按钮 添加事件
-////        viewNorth.AddListeners(this, north, west, center, jTextXGField, jTextTJField);
-//
-//        //对面板中的组件重新布局并绘制
-//        jPanel.revalidate();
-//        //对本身进行重绘
-//        jPanel.repaint();
+        //删除所有控件
+//        jPanel.removeAll();
+        jPanel.remove(jf);
+
+        //重新添加
+        //*****************开始为每个卡片添加组件*****************添加
+//        eastCard.addCKCard(this, center, west);
+        //****************************************************修改
+        JTextField jTextXGField = eastCard.addXGCard(this, center);
+        //****************************************************添加
+        JTextField jTextTJField = eastCard.addTJCard(this, center);
+        //****************************************************删除
+//        eastCard.addSCCard(this, center, west);
+        //**************************************结束为每个卡片添加组件
+
+        //为 North 菜单 按钮 添加事件
+//        viewNorth.AddListeners(this, north, west, center, jTextXGField, jTextTJField);
+
+        //对面板中的组件重新布局并绘制
+        jPanel.revalidate();
+        //对本身进行重绘
+        jPanel.repaint();
     }
+    */
 
     public static class eastCard {
         public static void addCKCard(East east, Center center, West west) {
