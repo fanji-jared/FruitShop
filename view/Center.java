@@ -5,6 +5,7 @@ import FruitShop.FruitShop;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
@@ -27,12 +28,17 @@ public class Center {
     public int PageNum = 1;
     //总页码
     public int PageSum;
+    //水果详情界面
+    FruitDetail fruitDetail;
 
     public Center(Container container, int rows, int cols, int hgap, int vgap, int width, int height) {
         this.rows = rows;
         this.cols = cols;
         this.width = width;
         this.height = height;
+        // 创建水果详情类
+        fruitDetail = new FruitDetail();
+
         //创建网格布局（行，列，行间距，列间距）
         gridLayout = new GridLayout(rows, cols, hgap, vgap);
         GridJPanel = new JPanel(gridLayout);
@@ -67,8 +73,6 @@ public class Center {
                 System.out.println("未设置网络图片:" + e.getMessage());
             }
             JLabel jLabel = new JLabel(news);
-
-
             ImageIcon image = new ImageIcon(img);
             //设置图片大小
             image.setImage(image.getImage().getScaledInstance(width / cols / 2, height / rows - 25, Image.SCALE_SMOOTH));
@@ -79,6 +83,33 @@ public class Center {
             jLabel.setVerticalAlignment(SwingConstants.CENTER);
             //把标签放入面板
             jPanel.add(jLabel);
+
+            // 为每个水果添加点击事件
+            int finalI = i;
+            jPanel.addMouseListener(new MouseListener() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    // 创建新的窗口，展示水果的详细信息
+                    fruitDetail.loadView(fruits[finalI]);
+                }
+                @Override
+                public void mousePressed(MouseEvent e) {
+
+                }
+                @Override
+                public void mouseReleased(MouseEvent e) {
+
+                }
+                @Override
+                public void mouseEntered(MouseEvent e) {
+
+                }
+                @Override
+                public void mouseExited(MouseEvent e) {
+
+                }
+            });
+
             //面板压入数组
             jPanels[i] = jPanel;
             //设置首选大小
