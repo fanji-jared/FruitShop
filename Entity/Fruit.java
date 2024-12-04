@@ -13,7 +13,7 @@ public class Fruit {
     //价格（元/斤）
     private double price;
     //库存（斤）
-    private double stock;
+    private int stock;
 
     public Fruit(int id, String name) {
         setId(id);
@@ -22,7 +22,7 @@ public class Fruit {
         //使用format保留double的前两位
         DecimalFormat df = new DecimalFormat("######.00");
         setPrice(Double.parseDouble(df.format(ra.nextDouble(1.0, 21.0))));
-        setStock(Double.parseDouble(df.format(ra.nextDouble(0, 101.0))));
+        setStock(ra.nextInt(0, 101));
         setImgUrl("images/default.png");
     }
 
@@ -34,15 +34,15 @@ public class Fruit {
         //使用format保留double的前两位
         DecimalFormat df = new DecimalFormat("######.00");
         setPrice(Double.parseDouble(df.format(ra.nextDouble(1.0, 21.0))));
-        setStock(Double.parseDouble(df.format(ra.nextDouble(0, 101.0))));
+        setStock(ra.nextInt(0, 101));
     }
 
-    public Fruit(int id, String name, String ImgUrl, double price, double stock) {
+    public Fruit(int id, String name, String ImgUrl, double price, int stock) {
         setId(id);
         setName(name);
         setImgUrl(ImgUrl);
         setPrice(price >= 0 ? price : 0);
-        setStock(stock >= 0 ? stock : 0);
+        setStock(Math.max(stock, 0));
     }
 
     public void setImgUrl(String imgUrl) {
@@ -69,7 +69,7 @@ public class Fruit {
         this.price = price;
     }
 
-    public void setStock(double stock) {
+    public void setStock(int stock) {
         this.stock = stock;
     }
 
@@ -81,7 +81,7 @@ public class Fruit {
         return price;
     }
 
-    public double getStock() {
+    public int getStock() {
         return stock;
     }
 }
