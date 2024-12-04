@@ -70,7 +70,7 @@ public class Center {
                 try {
                     img = new URL(localUrl, fruit.getImgUrl());
                 } catch (MalformedURLException ex) {
-                    throw new RuntimeException(ex);
+                    System.out.println("未设置本地图片:" + e.getMessage());
                 }
                 System.out.println("未设置网络图片:" + e.getMessage());
             }
