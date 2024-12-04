@@ -5,6 +5,8 @@ import FruitShop.Entity.Fruit;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class JdbcFruit {
@@ -17,12 +19,14 @@ public class JdbcFruit {
         ArrayList<Fruit> arrayList = new ArrayList<Fruit>();
         try {
             while (rs.next()) {
+                // ID、名称、图片链接、价格、库存
                 int id = rs.getInt("fruit_id");
                 String name = rs.getString("name");
                 String imageUrl = rs.getString("image_url");
                 double price = rs.getDouble("price");
                 int stock = rs.getInt("stock");
-//                System.out.println(id + " " + name + " " + imageUrl + " " + price + " " + stock);
+
+                // 创建后添加水果
                 Fruit fruit = new Fruit(id, name, imageUrl, price, stock);
                 arrayList.add(fruit);
             }
@@ -106,5 +110,59 @@ public class JdbcFruit {
         int rowsDeleted = JDBCUtils.executeUpdate(deleteSql, deleteParams);
         System.out.println("Rows deleted: " + rowsDeleted);
         return rowsDeleted;
+    }
+
+    /**
+     * 根据水果id查询 水果订单信息
+     * @param fruit 水果对象
+     * @param offset 偏移量
+     * @param limit 限制返回数
+     * @return Object[][] 二维数组
+     */
+    public static Object[][] getOrdersData(Fruit fruit, int offset, int limit) {
+        // 查询数据
+        String selectSql = "SELECT * FROM orders WHERE fruit_id = ? LIMIT ?, ?";
+        Object[] selectParams = {fruit.getId(), offset, limit};
+        ResultSet rs = JDBCUtils.executeQuery(selectSql, selectParams);
+
+        // 初始化Object[][]
+        Object[][] data = new Object[][]{};
+        try {
+            while (rs.next()) {
+                // 存储订单信息，包括订单ID、水果ID、购买数量、订单日期、订单状态
+                int order_id = rs.getInt("order_id");
+                int fruit_id = rs.getInt("fruit_id");
+                int customer_id = rs.getInt("customer_id");
+                int quantity = rs.getInt("quantity");
+                Date order_date = rs.getDate("order_date");
+                String status = rs.getString("status");
+
+                // 添加对象到data
+                data = Arrays.copyOf(data, data.length + 1); // 扩展数组
+                data[data.length - 1] = new Object[]{order_id, fruit_id, customer_id, quantity, order_date, status};
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println(e.getMessage());
+        } finally {
+            JDBCUtils.close(null, null, rs); // 关闭ResultSet
+        }
+        return data;
+    }
+
+    // 一个方法，用于获取 SELECT count(*) FROM orders WHERE fruit_id = ? 的数量
+    public static int getOrdersCount(Fruit fruit) {
+        // 使用 JDBCUtils 库的 executeQuery
+        String countSql = "SELECT COUNT(*) FROM orders WHERE fruit_id = ?";
+        Object[] countParams = {fruit.getId()};
+        ResultSet rs = JDBCUtils.executeQuery(countSql, countParams);
+        try {
+            if (rs.next()) {
+                return rs.getInt(1); // 返回查询结果的第一列的值
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
     }
 }
