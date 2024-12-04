@@ -101,7 +101,7 @@ public class JdbcFruit {
 
     public static int deleteFruits(int fruitID) {
         // 删除数据
-        String deleteSql = "DELETE FROM fruit WHERE id = ?";
+        String deleteSql = "DELETE FROM fruit WHERE fruit_id = ?";
         Object[] deleteParams = {fruitID};
         int rowsDeleted = JDBCUtils.executeUpdate(deleteSql, deleteParams);
         System.out.println("Rows deleted: " + rowsDeleted);
