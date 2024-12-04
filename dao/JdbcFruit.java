@@ -22,7 +22,7 @@ public class JdbcFruit {
                 String imageUrl = rs.getString("image_url");
                 double price = rs.getDouble("price");
                 int stock = rs.getInt("stock");
-                System.out.println(id + " " + name + " " + imageUrl + " " + price + " " + stock);
+//                System.out.println(id + " " + name + " " + imageUrl + " " + price + " " + stock);
                 Fruit fruit = new Fruit(id, name, imageUrl, price, stock);
                 arrayList.add(fruit);
             }
