@@ -42,7 +42,7 @@ public class viewEastListen {
             public void actionPerformed(ActionEvent e) {
                 int id = Integer.parseInt(jTextId.getText());
                 //判断是否可以修改
-                if (id > 0 && id <= center.JPfruits.length) {
+                if (id >= 0) {
                     //分配默认值，方便判断哪些参数可以用
                     String XgUrl = "#", XgName = "#";
                     double XgPri = -1.00;
@@ -153,7 +153,7 @@ public class viewEastListen {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int id = Integer.parseInt(jDelTextField.getText());
-                if (id >= 1 && id <= center.JPfruits.length) { // id <= FruitShop.fruits.size()
+                if (id >= 0) {
                     //删除
                     int addI = JdbcFruit.deleteFruits(id);
                     if(addI != 1){
