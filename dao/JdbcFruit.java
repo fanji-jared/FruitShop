@@ -85,7 +85,7 @@ public class JdbcFruit {
             // 将所有要更新的字段用逗号分隔连接起来
             updateSqlBuilder.append(String.join(", ", updateFields));
             // 添加 WHERE 子句
-            updateSqlBuilder.append(" WHERE id = ?");
+            updateSqlBuilder.append(" WHERE fruit_id = ?");
             updateParams.add(id); // 添加 id 作为最后一个参数
         } else {
             // 如果没有需要更新的字段，返回 0 表示没有更新任何行
