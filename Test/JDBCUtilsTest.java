@@ -51,7 +51,7 @@ public class JDBCUtilsTest {
     @Test
     public void sc(){
         // 删除数据
-        String deleteSql = "DELETE FROM users WHERE id = ?";
+        String deleteSql = "DELETE FROM fruit WHERE id = ?";
         Object[] deleteParams = {1};
         int rowsDeleted = JDBCUtils.executeUpdate(deleteSql, deleteParams);
         System.out.println("Rows deleted: " + rowsDeleted);
