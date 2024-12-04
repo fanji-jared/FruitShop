@@ -2,6 +2,7 @@ package FruitShop.util;
 
 import FruitShop.Entity.Fruit;
 import FruitShop.FruitShop;
+import FruitShop.dao.JdbcFruit;
 import FruitShop.view.Center;
 import FruitShop.view.West;
 
@@ -44,7 +45,8 @@ public class viewEastListen {
                 if (id > 0 && id <= center.JPfruits.length) {
                     //分配默认值，方便判断哪些参数可以用
                     String XgUrl = "#", XgName = "#";
-                    double XgPri = -1.00, XgSto = -1.00;
+                    double XgPri = -1.00;
+                    int XgSto = -1;
 
                     if (!Objects.equals(jTextUrl.getText(), "不修改不填") && !jTextUrl.getText().equals("")) {
                         XgUrl = jTextUrl.getText();
@@ -61,13 +63,26 @@ public class viewEastListen {
                     }
 
                     if (!Objects.equals(jTextStock.getText(), "不修改不填") && !jTextStock.getText().equals("")) {
-                        //格式化double
-                        DecimalFormat df = new DecimalFormat("######.00");
-                        XgSto = Double.parseDouble(df.format(Double.parseDouble(jTextStock.getText())));
+                        XgSto = Integer.parseInt(jTextStock.getText());
                     }
 
-                    //自动定义多个属性
-                    center.XgJPShu(fruits, id, XgName, XgUrl, XgPri, XgSto);
+                    //构建
+                    Fruit fruit = new Fruit(id, XgName, XgUrl, XgPri, XgSto);
+
+                    //更新
+                    int addI = JdbcFruit.changeFruits(fruit);
+                    if(addI != 1){
+                        // 修改失败
+                        // 显示一个简单的消息框
+                        JOptionPane.showMessageDialog(null, "修改数据 rowsInserted："+addI, "提示", JOptionPane.INFORMATION_MESSAGE);
+                    }
+
+                    //查询
+                    fruits = JdbcFruit.getFruits();
+                    //打包 并 刷新分页数据
+                    center.PackFruits(fruits, true);
+                    //应用并展示
+                    center.f5();
                 }else{
                     // 显示一个简单的消息框
                     JOptionPane.showMessageDialog(null, "id 存在问题，无法修改！", "提示", JOptionPane.INFORMATION_MESSAGE);
@@ -84,7 +99,8 @@ public class viewEastListen {
 
                     //分配默认值，方便判断哪些参数可以用
                     String TjUrl = "#";
-                    double TjPri = -1.00, TjSto = -1.00;
+                    double TjPri = -1.00;
+                    int TjSto = -1;
 
                     if (!Objects.equals(jTextTjUrl.getText(), "不添加不填") && !jTextTjUrl.getText().equals("")) {
                         TjUrl = jTextTjUrl.getText();
@@ -99,7 +115,7 @@ public class viewEastListen {
                     if (!Objects.equals(jTextTjStock.getText(), "不添加不填") && !jTextTjStock.getText().equals("")) {
                         //格式化double
                         DecimalFormat df = new DecimalFormat("######.00");
-                        TjSto = Double.parseDouble(df.format(Double.parseDouble(jTextTjStock.getText())));
+                        TjSto = Integer.parseInt(jTextTjStock.getText());
                     }
 
                     //创建 Fruit 类（根据参数判断使用哪个构造函数）
@@ -110,10 +126,19 @@ public class viewEastListen {
                             : (!TjUrl.equals("#") ? new Fruit(Integer.parseInt(jTextTjIdText), jTextTjNameText, TjUrl)
                             : new Fruit(Integer.parseInt(jTextTjIdText), jTextTjNameText));
 
-                    //添加到面板数组
-                    center.TjFruit(fruit);
-                    //更新id
-                    JTextTJField.setText(String.valueOf(center.JPfruits.length + 1));
+                    //添加
+                    int addI = JdbcFruit.addFruits(fruit);
+                    if(addI != 1){
+                        // 添加失败
+                        // 显示一个简单的消息框
+                        JOptionPane.showMessageDialog(null, "添加数据 rowsInserted："+addI, "提示", JOptionPane.INFORMATION_MESSAGE);
+                    }
+
+                    //查询
+                    fruits = JdbcFruit.getFruits();
+                    //打包 并 刷新分页数据
+                    center.PackFruits(fruits, true);
+                    //应用并展示
                     center.f5();
                 }else{
                     // 显示一个简单的消息框
@@ -127,11 +152,22 @@ public class viewEastListen {
         Del.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int nu = Integer.parseInt(jDelTextField.getText());
-                if (nu >= 1 && nu <= FruitShop.fruits.length) {
-                    center.DelFruit(nu);
-                    //刷新页数/总页数
-                    west.PageNum.setText(center.PageNum + " / " + center.PageSum);
+                int id = Integer.parseInt(jDelTextField.getText());
+                if (id >= 1 && id <= center.JPfruits.length) { // id <= FruitShop.fruits.size()
+                    //删除
+                    int addI = JdbcFruit.deleteFruits(id);
+                    if(addI != 1){
+                        // 添加失败
+                        // 显示一个简单的消息框
+                        JOptionPane.showMessageDialog(null, "删除数据 rowsInserted："+addI, "提示", JOptionPane.INFORMATION_MESSAGE);
+                    }
+
+                    //查询
+                    fruits = JdbcFruit.getFruits();
+                    //打包 并 刷新分页数据
+                    center.PackFruits(fruits, true);
+                    //应用并展示
+                    center.f5();
                 } else {
                     //输入框 请求焦点
                     jDelTextField.requestFocus();
