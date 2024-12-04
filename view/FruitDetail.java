@@ -8,6 +8,8 @@ import java.awt.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static FruitShop.FruitShop.localUrl;
+
 public class FruitDetail extends JFrame {
     public Fruit fruit;
     public static JFrame jFrame;
@@ -37,13 +39,24 @@ public class FruitDetail extends JFrame {
         fruitInfoPanel.setLayout(new GridLayout(1, 2)); // 两列布局
 
         // 水果图片
-        JLabel fruitImageLabel = null;
+        JLabel fruitImageLabel = new JLabel();
+
+        //添加图片
+        URL img = null;
         try {
-            fruitImageLabel = new JLabel(new ImageIcon(new URL(fruit.getImgUrl())));
+            img = new URL(fruit.getImgUrl());
         } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
+            try {
+                img = new URL(localUrl, fruit.getImgUrl());
+            } catch (MalformedURLException ex) {
+                System.out.println("未设置本地图片:" + e.getMessage());
+            }
+            System.out.println("未设置网络图片:" + e.getMessage());
         }
-        fruitImageLabel.setPreferredSize(new Dimension(260, 260));
+        ImageIcon image = new ImageIcon(img);
+        fruitImageLabel.setIcon(image);
+
+        fruitImageLabel.setPreferredSize(new Dimension(300, 260));
         fruitInfoPanel.add(fruitImageLabel);
 
         // 水果信息
