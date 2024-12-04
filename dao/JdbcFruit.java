@@ -67,7 +67,7 @@ public class JdbcFruit {
             updateParams.add(name);
         }
         if (image_url != null && !"#".equals(image_url)) {
-            updateFields.add("img_url = ?");
+            updateFields.add("image_url = ?");
             updateParams.add(image_url);
         }
         if (price >= 0.00) {
