@@ -22,7 +22,7 @@ public class FruitDetail extends JFrame {
         // 设置窗口标题
         jFrame.setTitle(fruit.getName() + " - 详细信息");
         // 设置窗口大小
-        jFrame.setSize(600, 500);
+        jFrame.setSize(400, 350);
         // 设置窗口居中
         jFrame.setLocationRelativeTo(null);
         // 设置子窗口的关闭操作为只关闭自己
@@ -54,9 +54,14 @@ public class FruitDetail extends JFrame {
             System.out.println("未设置网络图片:" + e.getMessage());
         }
         ImageIcon image = new ImageIcon(img);
+        //设置图片大小
+        image.setImage(image.getImage().getScaledInstance(250, 180, Image.SCALE_SMOOTH));
         fruitImageLabel.setIcon(image);
+        //对齐方式
+        fruitImageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        fruitImageLabel.setVerticalAlignment(SwingConstants.CENTER);
 
-        fruitImageLabel.setPreferredSize(new Dimension(300, 260));
+        fruitImageLabel.setPreferredSize(new Dimension(300, 200));
         fruitInfoPanel.add(fruitImageLabel);
 
         // 水果信息
@@ -65,31 +70,31 @@ public class FruitDetail extends JFrame {
 
         JLabel fruitIdLabel = new JLabel("水果ID:");
         fruitDetailsPanel.add(fruitIdLabel);
-        JTextField fruitIdField = new JTextField("1");
+        JTextField fruitIdField = new JTextField(fruit.getId());
         fruitIdField.setEnabled(false);
         fruitDetailsPanel.add(fruitIdField);
 
         JLabel fruitNameLabel = new JLabel("名称:");
         fruitDetailsPanel.add(fruitNameLabel);
-        JTextField fruitNameField = new JTextField("苹果");
+        JTextField fruitNameField = new JTextField(fruit.getName());
         fruitNameField.setEnabled(false);
         fruitDetailsPanel.add(fruitNameField);
 
         JLabel fruitLinkLabel = new JLabel("链接:");
         fruitDetailsPanel.add(fruitLinkLabel);
-        JTextField fruitLinkField = new JTextField("http://example.com");
+        JTextField fruitLinkField = new JTextField(fruit.getImgUrl());
         fruitLinkField.setEnabled(false);
         fruitDetailsPanel.add(fruitLinkField);
 
         JLabel fruitPriceLabel = new JLabel("价格:");
         fruitDetailsPanel.add(fruitPriceLabel);
-        JTextField fruitPriceField = new JTextField("10.00");
+        JTextField fruitPriceField = new JTextField(String.valueOf(fruit.getPrice()));
         fruitPriceField.setEnabled(false);
         fruitDetailsPanel.add(fruitPriceField);
 
         JLabel fruitStockLabel = new JLabel("库存:");
         fruitDetailsPanel.add(fruitStockLabel);
-        JTextField fruitStockField = new JTextField("100");
+        JTextField fruitStockField = new JTextField(fruit.getStock());
         fruitStockField.setEnabled(false);
         fruitDetailsPanel.add(fruitStockField);
 
