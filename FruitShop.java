@@ -1,6 +1,7 @@
 package FruitShop;
 
 import FruitShop.Entity.Fruit;
+import FruitShop.dao.JdbcFruit;
 import FruitShop.util.viewNorth;
 import FruitShop.util.viewWest;
 import FruitShop.view.*;
@@ -9,6 +10,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class FruitShop {
     // 项目根目录
@@ -19,7 +22,7 @@ public class FruitShop {
     public static int vh = 400;
 
     // 水果数组
-    public static Fruit[] fruits = new Fruit[]{
+    public static Fruit[] fruitss = new Fruit[]{
             new Fruit(1, "苹果", "https://img0.baidu.com/it/u=3802269103,3841920027&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=500"),
             new Fruit(2, "香蕉", "https://img1.baidu.com/it/u=2863208510,1801169639&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500"),
             new Fruit(3, "橘子", "https://ns-strategy.cdn.bcebos.com/ns-strategy/upload/fc_big_pic/part-00554-1041.jpg"),
@@ -38,7 +41,7 @@ public class FruitShop {
     };
 
     // 改为 ArrayList 存储
-    // static ArrayList<Fruit> fruitsList = new ArrayList<>(Arrays.asList(fruits));
+    public static ArrayList<Fruit> fruits = new ArrayList<>();
 
     public static void main(String[] args) throws MalformedURLException {
         //创建窗口
@@ -61,7 +64,8 @@ public class FruitShop {
 
         //中心
         Center center = new Center(container, 3, 2, 2, 2, vw - 150 - 50, vh - 35 - 20);
-        //打包
+        //查询打包
+        fruits = JdbcFruit.getFruits();
         center.PackFruits(fruits, true);
         center.f5();
 
