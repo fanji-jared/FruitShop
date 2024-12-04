@@ -3,6 +3,7 @@ package FruitShop.view;
 import FruitShop.Entity.Fruit;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.net.MalformedURLException;
@@ -27,77 +28,23 @@ public class FruitDetail extends JFrame {
         jFrame.setLocationRelativeTo(null);
         // 设置子窗口的关闭操作为只关闭自己
         jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-
-
-
         // 使用BorderLayout布局
         jFrame.setLayout(new BorderLayout());
 
         // 水果信息面板
         JPanel fruitInfoPanel = new JPanel();
         fruitInfoPanel.setLayout(new GridLayout(1, 2)); // 两列布局
+        // 顶部 margin 10px
+        fruitInfoPanel.setBorder(new EmptyBorder(10, 0, 0, 0));
 
-        // 水果图片
-        JLabel fruitImageLabel = new JLabel();
+        // 水果图片标签
+        JLabel fruitImageLabel = getFruitImageLabel(fruit);
 
-        //添加图片
-        URL img = null;
-        try {
-            img = new URL(fruit.getImgUrl());
-        } catch (MalformedURLException e) {
-            try {
-                img = new URL(localUrl, fruit.getImgUrl());
-            } catch (MalformedURLException ex) {
-                System.out.println("未设置本地图片:" + e.getMessage());
-            }
-            System.out.println("未设置网络图片:" + e.getMessage());
-        }
-        ImageIcon image = new ImageIcon(img);
-        //设置图片大小
-        image.setImage(image.getImage().getScaledInstance(250, 180, Image.SCALE_SMOOTH));
-        fruitImageLabel.setIcon(image);
-        //对齐方式
-        fruitImageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        fruitImageLabel.setVerticalAlignment(SwingConstants.CENTER);
+        // 水果信息面板
+        JPanel fruitDetailsPanel = getFruitDetailsPanel(fruit);
 
-        fruitImageLabel.setPreferredSize(new Dimension(300, 200));
+        // 添加到面板
         fruitInfoPanel.add(fruitImageLabel);
-
-        // 水果信息
-        JPanel fruitDetailsPanel = new JPanel();
-        fruitDetailsPanel.setLayout(new GridLayout(5, 1)); // 五行布局
-
-        JLabel fruitIdLabel = new JLabel("水果ID:");
-        fruitDetailsPanel.add(fruitIdLabel);
-        JTextField fruitIdField = new JTextField(fruit.getId());
-        fruitIdField.setEnabled(false);
-        fruitDetailsPanel.add(fruitIdField);
-
-        JLabel fruitNameLabel = new JLabel("名称:");
-        fruitDetailsPanel.add(fruitNameLabel);
-        JTextField fruitNameField = new JTextField(fruit.getName());
-        fruitNameField.setEnabled(false);
-        fruitDetailsPanel.add(fruitNameField);
-
-        JLabel fruitLinkLabel = new JLabel("链接:");
-        fruitDetailsPanel.add(fruitLinkLabel);
-        JTextField fruitLinkField = new JTextField(fruit.getImgUrl());
-        fruitLinkField.setEnabled(false);
-        fruitDetailsPanel.add(fruitLinkField);
-
-        JLabel fruitPriceLabel = new JLabel("价格:");
-        fruitDetailsPanel.add(fruitPriceLabel);
-        JTextField fruitPriceField = new JTextField(String.valueOf(fruit.getPrice()));
-        fruitPriceField.setEnabled(false);
-        fruitDetailsPanel.add(fruitPriceField);
-
-        JLabel fruitStockLabel = new JLabel("库存:");
-        fruitDetailsPanel.add(fruitStockLabel);
-        JTextField fruitStockField = new JTextField(fruit.getStock());
-        fruitStockField.setEnabled(false);
-        fruitDetailsPanel.add(fruitStockField);
-
         fruitInfoPanel.add(fruitDetailsPanel);
 
         // 订单信息表格
@@ -109,11 +56,12 @@ public class FruitDetail extends JFrame {
         DefaultTableModel model = new DefaultTableModel(data, columnNames);
         JTable orderTable = new JTable(model);
         JScrollPane scrollPane = new JScrollPane(orderTable);
+        // 顶部 margin 10px
+        scrollPane.setBorder(new EmptyBorder(10, 0, 0, 0));
 
         // 将组件添加到主窗口
         jFrame.add(fruitInfoPanel, BorderLayout.NORTH);
         jFrame.add(scrollPane, BorderLayout.CENTER);
-
 
 //        // 显示一个简单的消息框
 //        JOptionPane.showMessageDialog(null, "这是一个简单的消息框", "提示", JOptionPane.INFORMATION_MESSAGE);
@@ -130,5 +78,66 @@ public class FruitDetail extends JFrame {
 
         // 设置窗口可见
         jFrame.setVisible(true);
+    }
+
+    private JLabel getFruitImageLabel(Fruit fruit) {
+        // 水果图片
+        JLabel fruitImageLabel = new JLabel();
+        //添加图片
+        URL img = null;
+        try {
+            img = new URL(fruit.getImgUrl());
+        } catch (MalformedURLException e) {
+            try {
+                img = new URL(localUrl, fruit.getImgUrl());
+            } catch (MalformedURLException ex) {
+                System.out.println("未设置本地图片:" + e.getMessage());
+            }
+            System.out.println("未设置网络图片:" + e.getMessage());
+        }
+        ImageIcon image = new ImageIcon(img);
+        //设置图片大小
+        image.setImage(image.getImage().getScaledInstance(150, 130, Image.SCALE_SMOOTH));
+        fruitImageLabel.setIcon(image);
+        //对齐方式
+        fruitImageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        fruitImageLabel.setVerticalAlignment(SwingConstants.CENTER);
+
+        return fruitImageLabel;
+    }
+
+    private static JPanel getFruitDetailsPanel(Fruit fruit) {
+        JPanel fruitDetailsPanel = new JPanel();
+        FlowLayout flowLayout = new FlowLayout(FlowLayout.LEFT); // 设置布局管理器，组件左对齐
+        fruitDetailsPanel.setLayout(flowLayout);
+
+        // 添加标签和文本字段，设置文本字段的首选宽度
+        JLabel fruitIdLabel = new JLabel("水果ID：");
+        JTextField fruitIdField = new JTextField(String.valueOf(fruit.getId()), 11); // 设置文本字段的列数为10，这会影响其宽度
+        fruitDetailsPanel.add(fruitIdLabel);
+        fruitDetailsPanel.add(fruitIdField);
+
+        String s = "：   ";
+        JLabel fruitNameLabel = new JLabel("名称" + s);
+        JTextField fruitNameField = new JTextField(fruit.getName(), 11);
+        fruitDetailsPanel.add(fruitNameLabel);
+        fruitDetailsPanel.add(fruitNameField);
+
+        JLabel fruitLinkLabel = new JLabel("链接" + s);
+        JTextField fruitLinkField = new JTextField(fruit.getImgUrl(), 11);
+        fruitDetailsPanel.add(fruitLinkLabel);
+        fruitDetailsPanel.add(fruitLinkField);
+
+        JLabel fruitPriceLabel = new JLabel("价格" + s);
+        JTextField fruitPriceField = new JTextField(String.valueOf(fruit.getPrice()), 11);
+        fruitDetailsPanel.add(fruitPriceLabel);
+        fruitDetailsPanel.add(fruitPriceField);
+
+        JLabel fruitStockLabel = new JLabel("库存" + s);
+        JTextField fruitStockField = new JTextField(String.valueOf(fruit.getStock()), 11);
+        fruitDetailsPanel.add(fruitStockLabel);
+        fruitDetailsPanel.add(fruitStockField);
+        
+        return fruitDetailsPanel;
     }
 }

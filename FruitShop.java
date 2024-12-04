@@ -2,8 +2,8 @@ package FruitShop;
 
 import FruitShop.Entity.Fruit;
 import FruitShop.dao.JdbcFruit;
-import FruitShop.util.viewNorth;
-import FruitShop.util.viewWest;
+import FruitShop.util.viewNorthListen;
+import FruitShop.util.viewWestListen;
 import FruitShop.view.*;
 
 import javax.swing.*;
@@ -11,7 +11,6 @@ import java.awt.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class FruitShop {
     // 项目根目录
@@ -75,7 +74,7 @@ public class FruitShop {
         //西
         West west = new West(container, 50, vh - 35 - 20, center);
         //为 west 上下翻页 按钮 添加事件
-        viewWest.AddListeners(west, center);
+        viewWestListen.AddListeners(west, center);
 
         //东
         East east = new East(container, 150, vh - 35 - 20);
@@ -92,7 +91,7 @@ public class FruitShop {
         //北
         North north = new North(container, vw, 35);
         //为 North 菜单 按钮 添加事件
-        viewNorth.AddListeners(east, north, west, center, jTextXGField, jTextTJField);
+        viewNorthListen.AddListeners(east, north, west, center, jTextXGField, jTextTJField);
 
 
         //设置窗口大小
