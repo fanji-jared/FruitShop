@@ -1,0 +1,24 @@
+@startuml
+package "FruitShop.util" {
+
+    class Init {
+        +ButtonInit(JButton j): void
+        +addJTextFocus(JTextField[] jTextFields): void
+    }
+
+    class viewEastListen {
+        +addCKClick(Center center, West west, JButton TzBut, JTextField jTextField): void
+        +addXGClick(Center center, JButton jButXg, JTextField jTextId, JTextField jTextUrl, JTextField jTextName, JTextField jTextPrice, JTextField jTextStock): void
+        +addTJClick(Center center, JButton jButTj, JTextField jTextTjName, JTextField jTextTjUrl, JTextField jTextTjPrice, JTextField jTextTjStock, JTextField JTextTJField): void
+        +addSCClick(Center center, West west, JButton Del, JTextField jDelTextField): void
+    }
+
+    class viewFruitDetailListen {
+        +AddListeners(Fruit nowFruit, JButton LPageButton, JTextField currentPageField, JTextField totalPagesField, JButton RPageButton): void
+    }
+
+    class viewNorthListen {
+        +AddListeners(East east, North north, West west, Center center, JTextField jTextXGField, JTextField jTextTJField): void
+    }
+}
+@enduml

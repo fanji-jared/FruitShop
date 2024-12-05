@@ -1,0 +1,55 @@
+@startuml
+skinparam packageStyle rectangle
+
+package "水果销售管理系统" {
+  [FruitShop] as FruitShop
+  [Fruit] as Fruit
+  [Center] as Center
+  [South] as South
+  [West] as West
+  [East] as East
+  [North] as North
+  [JdbcFruit] as JdbcFruit
+  [JDBCUtils] as JDBCUtils
+  [Entity] as Entity
+  [util] as util
+  [dao] as dao
+  [images] as images
+  [lib] as lib
+  [viewEastListen] as viewEastListen
+  [viewFruitDetailListen] as viewFruitDetailListen
+  [viewNorthListen] as viewNorthListen
+  [viewWestListen] as viewWestListen
+  [.gitignore] as gitignore
+  [FruitShop.iml] as FruitShopImL
+
+  FruitShop -down-> Center : Initializes
+  FruitShop -down-> North : Initializes
+  FruitShop -down-> South : Initializes
+  FruitShop -down-> West : Initializes
+  FruitShop -down-> East : Initializes
+
+  Center -down-> Fruit : Displays
+  East -down-> JdbcFruit : Uses
+  North -down-> viewNorthListen : Listens
+  West -down-> viewWestListen : Listens
+  East -down-> viewEastListen : Listens
+  FruitDetail -down-> viewFruitDetailListen : Listens
+
+  East ..> util : Uses
+  dao ..> JdbcFruit : Contains
+  Entity ..> Fruit : Extends
+  FruitShop ..> JDBCUtils : Uses
+  FruitShop ..> Entity : Uses
+  FruitShop ..> dao : Uses
+  FruitShop ..> lib : Uses
+  FruitShop ..> images : Uses
+}
+
+note right of FruitShop : 主类，程序入口点
+note right of JdbcFruit : 与数据库交互
+note right of JDBCUtils : 数据库连接工具类
+note right of Entity : 定义数据模型
+note right of util : 辅助功能
+note right of dao : 数据访问对象层
+@enduml

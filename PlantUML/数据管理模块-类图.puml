@@ -1,0 +1,53 @@
+@startuml
+class JdbcFruit {
+    +getFruitById(fruitId: int): Fruit
+    +addFruit(fruit: Fruit): boolean
+    +updateFruit(fruit: Fruit): boolean
+    +deleteFruit(fruitId: int): boolean
+    +getOrdersByFruitId(fruitId: int): List<Order>
+}
+
+class JDBCUtils {
+    +getConnection(): Connection
+    +closeConnection(connection: Connection)
+    +executeQuery(query: String): ResultSet
+    +executeUpdate(query: String): int
+}
+
+class Fruit {
+    -fruit_id: int
+    -name: String
+    -image_url: String
+    -price: BigDecimal
+    -stock: int
+}
+
+class Customer {
+    -customer_id: int
+    -name: String
+    -contact_info: String
+    -address: String
+}
+
+class Order {
+    -order_id: int
+    -fruit_id: int
+    -customer_id: int
+    -quantity: int
+    -order_date: LocalDateTime
+    -status: String
+}
+
+JdbcFruit --> "1" Fruit : manages
+JdbcFruit --> "1" Customer : manages
+JdbcFruit --> "1" Order : manages
+JDBCUtils --> "1" Connection : provides
+
+note right of JdbcFruit
+  与数据库交互，执行查询、添加、修改和删除操作
+end note
+
+note right of JDBCUtils
+  数据库连接和关闭资源的方法
+end note
+@enduml

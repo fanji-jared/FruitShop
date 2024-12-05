@@ -1,0 +1,11 @@
+@startuml
+actor User as user
+participant "业务逻辑模块" as businessLogic
+participant "数据管理模块" as dataManagement
+
+user -> businessLogic: 请求操作（查询/下单/更新）
+businessLogic -> dataManagement: 调用数据操作方法
+dataManagement -> businessLogic: 返回操作结果
+businessLogic -> user: 反馈操作结果
+
+@enduml

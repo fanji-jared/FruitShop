@@ -1,0 +1,26 @@
+@startuml
+start
+:初始化界面;
+
+partition Center {
+    :显示水果列表;
+}
+
+partition North {
+    :处理菜单按钮事件;
+}
+
+partition South {
+    :显示版权信息;
+}
+
+partition West {
+    :处理分页和跳转页事件;
+}
+
+partition East {
+    :处理查看、修改、添加、删除事件;
+}
+
+stop
+@enduml
