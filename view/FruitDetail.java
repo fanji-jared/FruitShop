@@ -100,10 +100,11 @@ public class FruitDetail extends JFrame {
         Object[][] data = JdbcFruit.getOrdersData(fruit, viewFruitDetailListen.offset, viewFruitDetailListen.pageSize);
         // 创建表格模型
         DefaultTableModel model = new DefaultTableModel(data, columnNames);
-        // 为 "客户ID" 列的每个值设置点击事件
-        viewFruitDetailListen.AddListeners(model);
         // 创建表格
         JTable orderTable = new JTable(model);
+        // 为表格 “客户ID” 添加点击事件
+        viewFruitDetailListen.AddListeners(model, orderTable);
+        // 添加滚动条
         JScrollPane scrollPane = new JScrollPane(orderTable);
         // 顶部 margin 10px
         scrollPane.setBorder(new EmptyBorder(10, 0, 0, 0));
