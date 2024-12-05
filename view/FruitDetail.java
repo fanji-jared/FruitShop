@@ -100,6 +100,9 @@ public class FruitDetail extends JFrame {
         Object[][] data = JdbcFruit.getOrdersData(fruit, viewFruitDetailListen.offset, viewFruitDetailListen.pageSize);
         // 创建表格模型
         DefaultTableModel model = new DefaultTableModel(data, columnNames);
+        // 为 "客户ID" 列的每个值设置点击事件
+        viewFruitDetailListen.AddListeners(model);
+        // 创建表格
         JTable orderTable = new JTable(model);
         JScrollPane scrollPane = new JScrollPane(orderTable);
         // 顶部 margin 10px
@@ -171,6 +174,8 @@ public class FruitDetail extends JFrame {
         paginaPanel.add(RPageButton);
         return paginaPanel;
     }
+
+    //
 
     /**
      * 获取水果详情面板 （包含图片和详情）
