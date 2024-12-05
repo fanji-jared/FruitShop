@@ -3,6 +3,16 @@ package FruitShop.Entity;
 import java.text.DecimalFormat;
 import java.util.Random;
 
+/**
+ * -- 创建 Fruit 表
+ * CREATE TABLE Fruit (
+ *     fruit_id INT AUTO_INCREMENT PRIMARY KEY,
+ *     name VARCHAR(100) NOT NULL,
+ *     image_url VARCHAR(255),
+ *     price DECIMAL(10, 2) NOT NULL,
+ *     stock INT NOT NULL
+ * );
+ */
 public class Fruit {
     //水果图片链接
     private String ImgUrl;
