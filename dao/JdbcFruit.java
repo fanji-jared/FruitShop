@@ -10,6 +10,10 @@ import java.util.Date;
 import java.util.List;
 
 public class JdbcFruit {
+    /**
+     * 查询所有水果
+     * @return 水果列表
+     */
     public static ArrayList<Fruit> getFruits(){
         // 查询数据
         String selectSql = "SELECT * FROM fruit";
@@ -39,6 +43,11 @@ public class JdbcFruit {
         return arrayList;
     }
 
+    /**
+     * 根据ID删除水果
+     * @param fruit 要删除的水果对象
+     * @return 删除的行数
+     */
     public static int addFruits(Fruit fruit){
         // 解析参数
         String name = fruit.getName();
@@ -54,6 +63,11 @@ public class JdbcFruit {
         return rowsInserted;
     }
 
+    /**
+     * 根据ID删除水果
+     * @param fruit 要删除的水果对象
+     * @return 删除的行数
+     */
     public static int changeFruits(Fruit fruit) {
         // 初始化更新的字段和参数列表
         List<String> updateFields = new ArrayList<>();
@@ -103,6 +117,11 @@ public class JdbcFruit {
         return rowsUpdated;
     }
 
+    /**
+     * 根据水果id删除水果
+     * @param fruitID 要删除的水果id
+     * @return 删除的行数
+     */
     public static int deleteFruits(int fruitID) {
         // 删除数据
         String deleteSql = "DELETE FROM fruit WHERE fruit_id = ?";
@@ -113,11 +132,45 @@ public class JdbcFruit {
     }
 
     /**
+     * 根据客户ID查询客户数据
+     * @param customerId 客户id
+     * @return Object[][]，包含客户信息的二维数组
+     */
+    public static Object[][] getCustomerData(int customerId) {
+        // 查询数据
+        String selectSql = "SELECT * FROM customer WHERE customer_id = ?";
+        Object[] selectParams = {customerId};
+        ResultSet rs = JDBCUtils.executeQuery(selectSql, selectParams);
+
+        // 初始化Object[][]
+        Object[][] data = new Object[][]{};
+        try {
+            while (rs.next()) {
+                // 存储客户信息，包括客户ID、姓名、联系方式、地址
+                int customer_id = rs.getInt("customer_id");
+                String name = rs.getString("name");
+                String customer_info = rs.getString("customer_info");
+                String address = rs.getString("address");
+
+                // 添加对象到data
+                data = Arrays.copyOf(data, data.length + 1); // 扩展数组
+                data[data.length - 1] = new Object[]{customer_id, name, customer_info, address};
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println(e.getMessage());
+        } finally {
+            JDBCUtils.close(null, null, rs); // 关闭ResultSet
+        }
+        return data;
+    }
+
+    /**
      * 根据水果id查询 水果订单信息
      * @param fruit 水果对象
      * @param offset 偏移量
      * @param limit 限制返回数
-     * @return Object[][] 二维数组
+     * @return Object[][] ，包含订单信息的二维数组
      */
     public static Object[][] getOrdersData(Fruit fruit, int offset, int limit) {
         // 查询数据
@@ -150,7 +203,11 @@ public class JdbcFruit {
         return data;
     }
 
-    // 一个方法，用于获取 SELECT count(*) FROM orders WHERE fruit_id = ? 的数量
+    /**
+     * 获取水果订单数量
+     * @param fruit 水果对象
+     * @return 订单数量
+     */
     public static int getOrdersCount(Fruit fruit) {
         // 使用 JDBCUtils 库的 executeQuery
         String countSql = "SELECT COUNT(*) FROM orders WHERE fruit_id = ?";
