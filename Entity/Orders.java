@@ -20,6 +20,7 @@ public class Orders {
     private double quantity;
     private String orderDate;
     private String status;
+
     public Orders(int orderID, int fruitID, int customerID, double quantity, String orderDate, String status) {
         this.orderID = orderID;
         this.fruitID = fruitID;
@@ -28,9 +29,7 @@ public class Orders {
         this.orderDate = orderDate;
         this.status = status;
     }
-    public Orders() {
 
-    }
     public int getOrderID() {
         return orderID;
     }
