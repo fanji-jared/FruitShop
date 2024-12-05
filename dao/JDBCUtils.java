@@ -1,5 +1,9 @@
 package FruitShop.dao;
 
+import FruitShop.Entity.Customer;
+import FruitShop.Entity.Fruit;
+import FruitShop.Entity.Orders;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -109,5 +113,27 @@ public class JDBCUtils {
             close(conn, ps, null);
         }
         return affectedRows;
+    }
+
+    // 测试
+    // 导入 fruit 表 测试
+    public static void importFruit(Fruit fruit) {
+        String sql = "INSERT INTO fruit (name, image_url, price, stock) VALUES (?, ?, ?, ?)";
+        Object[] params = {fruit.getName(), fruit.getImgUrl(), fruit.getPrice(), fruit.getStock()};
+        executeUpdate(sql, params);
+    }
+
+    // 导入 customer 表 测试
+    public static void importCustomer(Customer customer) {
+        String sql = "INSERT INTO customer (name, contact_info, address) VALUES (?, ?, ?)";
+        Object[] params = {customer.getName(), customer.getPhone(), customer.getAddress()};
+        executeUpdate(sql, params);
+    }
+
+    // 导入 orders 表 测试
+    public static void importOrders(Orders orders) {
+        String sql = "INSERT INTO orders (fruit_id, customer_id, quantity, status) VALUES (?, ?, ?, ?)";
+        Object[] params = {orders.getFruitId(), orders.getCustomerId(), orders.getQuantity(), orders.getStatus()};
+        executeUpdate(sql, params);
     }
 }
