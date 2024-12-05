@@ -113,16 +113,16 @@ public class FruitDetail extends JFrame {
 
     // 刷新表格
     public static void refScrollPane(Fruit nowFruit) {
-        //删除所有控件
+        //删除控件
         scrollPane.removeAll();
+        jFrame.remove(scrollPane);
         //重新添加
         scrollPane = getjScrollPane(nowFruit);
-        // 将组件添加到主窗口
         jFrame.add(scrollPane, BorderLayout.CENTER);
         //对面板中的组件重新布局并绘制
-        scrollPane.revalidate();
+        jFrame.revalidate();
         //对本身进行重绘
-        scrollPane.repaint();
+        jFrame.repaint();
     }
 
     /**
