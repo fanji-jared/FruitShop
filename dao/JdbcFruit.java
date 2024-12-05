@@ -44,9 +44,9 @@ public class JdbcFruit {
     }
 
     /**
-     * 根据ID查询水果
-     * @param fruit 要查询的水果对象
-     * @return 查询到的水果对象
+     * 插入水果对象
+     * @param fruit 要添加的水果对象
+     * @return 插入的行数
      */
     public static int addFruits(Fruit fruit){
         // 解析参数
