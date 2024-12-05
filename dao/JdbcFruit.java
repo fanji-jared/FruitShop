@@ -64,7 +64,7 @@ public class JdbcFruit {
     }
 
     /**
-     * 根据ID修改水果属性
+     * 修改水果属性
      * @param fruit 要修改的水果对象
      * @return 修改的行数
      */
