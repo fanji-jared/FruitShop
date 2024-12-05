@@ -19,7 +19,7 @@ public class viewFruitDetailListen {
     // 分页 - offset 偏移量
     public static int offset = 0;
     // 分页 - 每一页最大行数
-    public static int pageSize = 8;
+    public static int pageSize = 3;
 
     public static void AddListeners(Fruit nowFruit, JButton LPageButton, JTextField currentPageField, JTextField totalPagesField, JButton RPageButton){
         // 上一页按钮
@@ -28,6 +28,8 @@ public class viewFruitDetailListen {
             if (currentPage > 1){
                 // 翻页
                 currentPage--;
+                // 刷新 翻页后的 当前页面
+                currentPageField.setText(String.valueOf(currentPage));
                 // 计算翻页后的 offset
                 offset = (currentPage - 1) * pageSize;
                 // 刷新表格控件
@@ -46,6 +48,8 @@ public class viewFruitDetailListen {
                 }else{
                     // 翻页
                     currentPage = Integer.parseInt(text);
+                    // 刷新 翻页后的 当前页面
+                    currentPageField.setText(String.valueOf(currentPage));
                     // 计算翻页后的 offset
                     offset = (currentPage - 1) * pageSize;
                     // 刷新表格控件
@@ -61,6 +65,8 @@ public class viewFruitDetailListen {
             if (currentPage < Integer.parseInt(totalPagesField.getText())){
                 // 翻页
                 currentPage++;
+                // 刷新 翻页后的 当前页面
+                currentPageField.setText(String.valueOf(currentPage));
                 // 计算翻页后的 offset
                 offset = (currentPage - 1) * pageSize;
                 // 刷新表格控件
