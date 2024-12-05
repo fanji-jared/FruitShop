@@ -44,9 +44,9 @@ public class JdbcFruit {
     }
 
     /**
-     * 根据ID删除水果
-     * @param fruit 要删除的水果对象
-     * @return 删除的行数
+     * 根据ID查询水果
+     * @param fruit 要查询的水果对象
+     * @return 查询到的水果对象
      */
     public static int addFruits(Fruit fruit){
         // 解析参数
@@ -64,9 +64,9 @@ public class JdbcFruit {
     }
 
     /**
-     * 根据ID删除水果
-     * @param fruit 要删除的水果对象
-     * @return 删除的行数
+     * 根据ID修改水果属性
+     * @param fruit 要修改的水果对象
+     * @return 修改的行数
      */
     public static int changeFruits(Fruit fruit) {
         // 初始化更新的字段和参数列表
