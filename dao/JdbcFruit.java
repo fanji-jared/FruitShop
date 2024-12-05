@@ -149,12 +149,12 @@ public class JdbcFruit {
                 // 存储客户信息，包括客户ID、姓名、联系方式、地址
                 int customer_id = rs.getInt("customer_id");
                 String name = rs.getString("name");
-                String customer_info = rs.getString("customer_info");
+                String contact_info = rs.getString("contact_info");
                 String address = rs.getString("address");
 
                 // 添加对象到data
                 data = Arrays.copyOf(data, data.length + 1); // 扩展数组
-                data[data.length - 1] = new Object[]{customer_id, name, customer_info, address};
+                data[data.length - 1] = new Object[]{customer_id, name, contact_info, address};
             }
         } catch (SQLException e) {
             e.printStackTrace();
