@@ -133,7 +133,7 @@ public class JDBCUtils {
     // 导入 orders 表 测试
     public static void importOrders(Orders orders) {
         String sql = "INSERT INTO orders (fruit_id, customer_id, quantity, status) VALUES (?, ?, ?, ?)";
-        Object[] params = {orders.getFruitId(), orders.getCustomerId(), orders.getQuantity(), orders.getStatus()};
+        Object[] params = {orders.getFruitID(), orders.getCustomerID(), orders.getQuantity(), orders.getStatus()};
         executeUpdate(sql, params);
     }
 }
