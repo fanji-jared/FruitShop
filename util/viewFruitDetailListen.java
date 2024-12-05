@@ -21,6 +21,14 @@ public class viewFruitDetailListen {
     // 分页 - 每一页最大行数
     public static int pageSize = 3;
 
+    /**
+     * 为表格相关控件添加监听事件
+     * @param nowFruit 当前水果
+     * @param LPageButton 上一页按钮
+     * @param currentPageField 当前页面
+     * @param totalPagesField 总页面
+     * @param RPageButton 下一页按钮
+     */
     public static void AddListeners(Fruit nowFruit, JButton LPageButton, JTextField currentPageField, JTextField totalPagesField, JButton RPageButton){
         // 上一页按钮
         LPageButton.addActionListener(e -> {
